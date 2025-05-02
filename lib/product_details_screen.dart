@@ -17,7 +17,6 @@ class ProductDetailsScreen extends StatelessWidget {
         padding: EdgeInsets.all(16.0),
         child: ListView(
           children: [
-            // Text("Hello"),
             Text(
               'Product Name:',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
@@ -47,7 +46,7 @@ class ProductDetailsScreen extends StatelessWidget {
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
             ),
             Text(
-              '${product.nutriments?.energyKcal ?? 'N/A'} kcal',
+              _formatValue(product.nutriments.extractEnergyKcal(), 'kcal'),
             ),
             SizedBox(height: 16),
             Text(
@@ -55,39 +54,65 @@ class ProductDetailsScreen extends StatelessWidget {
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
             ),
             Text(
-              product.nutriments != null
-                  ? 'Fat: ${product.nutriments.fat ?? 'N/A'}g\n'
-                      'Sugar: ${product.nutriments.sugars ?? 'N/A'}g\n'
-                      'Protein: ${product.nutriments.proteins ?? 'N/A'}g'
-                  : 'Not available',
+              'Fat: ${_formatValue(product.nutriments.extractFat(), 'g')}\n'
+              'Sugar: ${_formatValue(product.nutriments.extractSugars(), 'g')}\n'
+              'Protein: ${_formatValue(product.nutriments.extractProteins(), 'g')}',
             ),
           ],
         ),
       ),
     );
   }
+
+  String _formatValue(double? value, String unit) {
+    if (value == null) {
+      return 'N/A';
+    } else {
+      return '${value.toStringAsFixed(1)} $unit';
+    }
+  }
 }
 
-extension NutrimentsExtension on Nutriments? {
-  double? get energyKcal {
+// 🔥 New safer extension:
+extension NutrimentsSafeExtract on Nutriments? {
+  double? extractEnergyKcal() {
     if (this == null) return null;
-    return this!.energyKcal ??
-        this!.toJson()['energy_kcal'] as double? ??
-        this!.toJson()['energy-kcal'] as double?;
+    final map = this!.toJson();
+    return _parseToDouble(map['energy-kcal_serving']) ??
+        _parseToDouble(map['energy-kcal_100g']) ??
+        _parseToDouble(map['energy-kcal']) ??
+        _parseToDouble(map['energyKcal']);
   }
 
-  double? get fat {
+  double? extractFat() {
     if (this == null) return null;
-    return this!.fat ?? this!.toJson()['fat'] as double?;
+    final map = this!.toJson();
+    return _parseToDouble(map['fat_serving']) ??
+        _parseToDouble(map['fat_100g']) ??
+        _parseToDouble(map['fat']);
   }
 
-  double? get sugars {
+  double? extractSugars() {
     if (this == null) return null;
-    return this!.sugars ?? this!.toJson()['sugars'] as double?;
+    final map = this!.toJson();
+    return _parseToDouble(map['sugars_serving']) ??
+        _parseToDouble(map['sugars_100g']) ??
+        _parseToDouble(map['sugars']);
   }
 
-  double? get proteins {
+  double? extractProteins() {
     if (this == null) return null;
-    return this!.proteins ?? this!.toJson()['proteins'] as double?;
+    final map = this!.toJson();
+    return _parseToDouble(map['proteins_serving']) ??
+        _parseToDouble(map['proteins_100g']) ??
+        _parseToDouble(map['proteins']);
   }
+}
+
+double? _parseToDouble(dynamic value) {
+  if (value == null) return null;
+  if (value is double) return value;
+  if (value is int) return value.toDouble();
+  if (value is String) return double.tryParse(value);
+  return null;
 }

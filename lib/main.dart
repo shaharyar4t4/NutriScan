@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'view_home.dart';
+import 'feacture/barcode/view_home.dart';
 
 void main() {
   runApp(MyApp());

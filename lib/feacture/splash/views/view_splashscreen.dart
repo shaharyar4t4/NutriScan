@@ -1,8 +1,7 @@
 import 'dart:async';
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:nutriscan/core/constants/app_colors.dart';
+import 'package:nutriscan/feacture/barcode/view_home.dart';
 
 class ViewSplashscreen extends StatefulWidget {
   const ViewSplashscreen({super.key});
@@ -12,46 +11,58 @@ class ViewSplashscreen extends StatefulWidget {
 }
 
 class _ViewSplashscreenState extends State<ViewSplashscreen> {
+  @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 4), () {});
+    // Navigate to HomeScreen after 4 seconds
+    Timer(const Duration(seconds: 4), () {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => HomeScreen()),
+      );
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+        // Background gradient
         decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              bg_up, // Starting color
-              bg_down, // Ending color
+              bg_up,
+              bg_down,
             ],
           ),
         ),
-        child: Center(
-            child: Stack(children: [
-          Container(
-            width: double.infinity,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage('assets/images/bg_image.png'),
-                  opacity: 0.5),
-            ),
-          ),
-          Positioned(
-            top: 220,
-            left: 26,
-            child: Center(
+        child: Stack(
+          children: [
+            // Background image with opacity
+            Positioned.fill(
+              child: Opacity(
+                opacity: 0.5,
                 child: Image.asset(
-              'assets/images/main_log.png',
-              width: 300,
-              height: 300,
-            )),
-          ),
-        ])),
+                  'assets/images/bg_image.png',
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            // Centered logo
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 220.0),
+                child: Image.asset(
+                  'assets/images/main_log.png',
+                  width: 300,
+                  height: 300,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

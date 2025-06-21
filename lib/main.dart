@@ -13,10 +13,15 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Barcode Scanner',
+      title: 'Nutri Scan',
       theme: ThemeData(
-        textTheme: GoogleFonts.poppinsTextTheme(),
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
+        primaryColor: Colors.white,
+        fontFamily: 'Poppins',
+        textTheme: TextTheme(
+          bodyLarge: TextStyle(fontSize: 16, color: Colors.black87),
+          bodyMedium: TextStyle(fontSize: 14, color: Colors.black54),
+          titleLarge: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
       ),
       home: ViewSplashscreen(),
     );

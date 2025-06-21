@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:nutriscan/core/constants/app_colors.dart';
-import 'package:nutriscan/feacture/barcode/view_home.dart';
 
 class ViewSplashscreen extends StatefulWidget {
   const ViewSplashscreen({super.key});
@@ -16,10 +16,7 @@ class _ViewSplashscreenState extends State<ViewSplashscreen> {
     super.initState();
     // Navigate to HomeScreen after 4 seconds
     Timer(const Duration(seconds: 4), () {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => HomeScreen()),
-      );
+      Get.toNamed('/onbored');
     });
   }
 

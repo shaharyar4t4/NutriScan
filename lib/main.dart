@@ -16,12 +16,7 @@ class MyApp extends StatelessWidget {
       title: 'Nutri Scan',
       theme: ThemeData(
         primaryColor: Colors.white,
-        fontFamily: 'Poppins',
-        textTheme: TextTheme(
-          bodyLarge: TextStyle(fontSize: 16, color: Colors.black87),
-          bodyMedium: TextStyle(fontSize: 14, color: Colors.black54),
-          titleLarge: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-        ),
+        textTheme: GoogleFonts.poppinsTextTheme(),
       ),
       home: ViewSplashscreen(),
     );

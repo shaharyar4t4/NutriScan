@@ -43,7 +43,7 @@ class _ViewSplashscreenState extends State<ViewSplashscreen> {
             // Background image with opacity
             Positioned.fill(
               child: Opacity(
-                opacity: 0.5,
+                opacity: 0.8,
                 child: Image.asset(
                   'assets/images/bg_image.png',
                   fit: BoxFit.cover,
@@ -52,13 +52,10 @@ class _ViewSplashscreenState extends State<ViewSplashscreen> {
             ),
             // Centered logo
             Center(
-              child: Padding(
-                padding: const EdgeInsets.only(top: 220.0),
-                child: Image.asset(
-                  'assets/images/main_log.png',
-                  width: 300,
-                  height: 300,
-                ),
+              child: Image.asset(
+                'assets/images/main_log.png',
+                width: 250,
+                height: 250,
               ),
             ),
           ],

@@ -1,24 +1,12 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nutriscan/core/constants/app_colors.dart';
+import 'package:nutriscan/feacture/splash/controller/splash_controller.dart';
 
-class ViewSplashscreen extends StatefulWidget {
-  const ViewSplashscreen({super.key});
+class ViewSplashscreen extends StatelessWidget {
+  ViewSplashscreen({super.key});
 
-  @override
-  State<ViewSplashscreen> createState() => _ViewSplashscreenState();
-}
-
-class _ViewSplashscreenState extends State<ViewSplashscreen> {
-  @override
-  void initState() {
-    super.initState();
-    // Navigate to HomeScreen after 4 seconds
-    Timer(const Duration(seconds: 4), () {
-      Get.toNamed('/onbored');
-    });
-  }
+  final SplashController controller = Get.put(SplashController());
 
   @override
   Widget build(BuildContext context) {
@@ -47,6 +35,7 @@ class _ViewSplashscreenState extends State<ViewSplashscreen> {
                 ),
               ),
             ),
+
             // Centered logo
             Center(
               child: Image.asset(

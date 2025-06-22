@@ -25,7 +25,7 @@ class OnboardCarController extends GetxController {
 
   void nextPage() {
     if (currentIndex.value == titles.length - 1) {
-      Get.toNamed('/home');
+      Get.toNamed('/onboredscreen');
     } else {
       pageController.nextPage(
         duration: const Duration(milliseconds: 300),

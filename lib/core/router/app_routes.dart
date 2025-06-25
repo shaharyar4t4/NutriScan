@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:nutriscan/feacture/auth/view/view_loginscreen.dart';
 import 'package:nutriscan/feacture/barcode/view_home.dart';
 import 'package:nutriscan/feacture/onboarding/veiws/view_onboredcar.dart';
 import 'package:nutriscan/feacture/onboarding/veiws/view_onboredscreen.dart';
@@ -17,6 +18,11 @@ var allPage = [
   GetPage(
     name: '/onboredscreen',
     page: () => ViewOnboredscreen(),
+    transition: Transition.cupertino,
+  ),
+  GetPage(
+    name: '/loginScreen',
+    page: () => ViewLoginscreen(),
     transition: Transition.cupertino,
   )
 ];

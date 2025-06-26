@@ -22,7 +22,7 @@ var allPage = [
   ),
   GetPage(
     name: '/loginScreen',
-    page: () => ViewLoginscreen(),
+    page: () => ViewLoginScreen(),
     transition: Transition.cupertino,
   )
 ];

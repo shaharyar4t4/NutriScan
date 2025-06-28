@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:nutriscan/core/constants/app_colors.dart';
 import 'package:nutriscan/feacture/auth/controller/login_controller.dart'
     show LoginController;
@@ -73,7 +74,7 @@ class _ViewLoginScreenState extends State<ViewLoginScreen> {
                           child: Column(
                             children: [
                               const Text(
-                                'Email Address',
+                                'Log In',
                                 style: TextStyle(
                                   fontSize: 24,
                                   fontWeight: FontWeight.bold,
@@ -81,7 +82,7 @@ class _ViewLoginScreenState extends State<ViewLoginScreen> {
                               ),
                               const SizedBox(height: 8),
                               Text(
-                                'Enter your email address, we just sent OTP to your email to register your account.',
+                                'Please enter your email and password to continue.',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   fontSize: 14,
@@ -162,7 +163,7 @@ class _ViewLoginScreenState extends State<ViewLoginScreen> {
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
                                     Text(
-                                      'Register',
+                                      'Log In',
                                       style: TextStyle(
                                         fontSize: 16,
                                         color: w_text,
@@ -173,6 +174,32 @@ class _ViewLoginScreenState extends State<ViewLoginScreen> {
                                   ],
                                 ),
                               ),
+                              const SizedBox(height: 40),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const Text(
+                                    'New here?',
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.grey,
+                                    ),
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      Get.offAllNamed('/register');
+                                    },
+                                    child: const Text(
+                                      ' Create an account',
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        color: bg_down,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              )
                             ],
                           ),
                         ),

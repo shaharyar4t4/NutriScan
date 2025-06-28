@@ -6,9 +6,9 @@ class SplashController extends GetxController {
   void onInit() {
     super.onInit();
 
-    // 4-second delay before moving to Onboard screen
-    Timer(const Duration(seconds: 4), () {
-      Get.toNamed('/onbored');
+    // 3-second delay before moving to onbored screen
+    Timer(const Duration(seconds: 3), () {
+      Get.offAllNamed('/onbored');
     });
   }
 }

@@ -35,7 +35,7 @@ class OnboardCarController extends GetxController {
   }
 
   void skip() {
-    Get.toNamed('/home');
+    Get.offAllNamed('/loginScreen');
   }
 
   void updatePageIndex(int index) {

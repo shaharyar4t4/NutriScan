@@ -49,7 +49,9 @@ class _ViewLoginScreenState extends State<ViewLoginScreen> {
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: IconButton(
-                    onPressed: () => Navigator.pop(context),
+                    onPressed: () {
+                      Get.toNamed('/onboredscreen');
+                    },
                     icon: Icon(Icons.arrow_back_ios_new, color: b_text),
                   ),
                 ),
@@ -187,7 +189,7 @@ class _ViewLoginScreenState extends State<ViewLoginScreen> {
                                   ),
                                   GestureDetector(
                                     onTap: () {
-                                      Get.offAllNamed('/register');
+                                      Get.offAllNamed('/signupScreen');
                                     },
                                     child: const Text(
                                       ' Create an account',

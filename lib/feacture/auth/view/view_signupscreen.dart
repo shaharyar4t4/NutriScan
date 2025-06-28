@@ -13,7 +13,7 @@ class ViewSignUpScreen extends StatefulWidget {
 class _ViewSignUpScreenState extends State<ViewSignUpScreen> {
   final SignUpController controller = SignUpController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
+  bool isLoading = false;
   @override
   void dispose() {
     controller.dispose();
@@ -172,8 +172,16 @@ class _ViewSignUpScreenState extends State<ViewSignUpScreen> {
                               ElevatedButton(
                                 onPressed: () async {
                                   if (_formKey.currentState!.validate()) {
+                                    setState(() {
+                                      isLoading = true;
+                                    });
+
                                     final result =
                                         await controller.handleSignUp(context);
+
+                                    setState(() {
+                                      isLoading = false;
+                                    });
                                   }
                                 },
                                 style: ElevatedButton.styleFrom(
@@ -184,20 +192,32 @@ class _ViewSignUpScreenState extends State<ViewSignUpScreen> {
                                     borderRadius: BorderRadius.circular(24),
                                   ),
                                 ),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Text(
-                                      'Sign Up',
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        color: w_text,
+                                child: isLoading
+                                    ? const SizedBox(
+                                        width: 24,
+                                        height: 24,
+                                        child: CircularProgressIndicator(
+                                          valueColor:
+                                              AlwaysStoppedAnimation<Color>(
+                                                  Colors.white),
+                                          strokeWidth: 2,
+                                        ),
+                                      )
+                                    : Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Text(
+                                            'Sign Up',
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                              color: w_text,
+                                            ),
+                                          ),
+                                          const SizedBox(width: 8),
+                                          Icon(Icons.arrow_forward,
+                                              color: w_text),
+                                        ],
                                       ),
-                                    ),
-                                    const SizedBox(width: 8),
-                                    Icon(Icons.arrow_forward, color: w_text),
-                                  ],
-                                ),
                               ),
                             ],
                           ),

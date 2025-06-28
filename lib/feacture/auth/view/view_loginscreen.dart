@@ -13,6 +13,7 @@ class ViewLoginScreen extends StatefulWidget {
 class _ViewLoginScreenState extends State<ViewLoginScreen> {
   final LoginController controller = LoginController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  bool isLoading = false;
 
   @override
   void dispose() {
@@ -146,11 +147,19 @@ class _ViewLoginScreenState extends State<ViewLoginScreen> {
                               const SizedBox(height: 24),
 
                               // Log In Button ✅
+
                               ElevatedButton(
-                                onPressed: () {
+                                onPressed: () async {
                                   if (_formKey.currentState!.validate()) {
-                                    controller.handleLogin(
-                                        context); // FIX: use handleLogin ✅
+                                    setState(() {
+                                      isLoading = true;
+                                    });
+
+                                    await controller.handleLogin(context);
+
+                                    setState(() {
+                                      isLoading = false;
+                                    });
                                   }
                                 },
                                 style: ElevatedButton.styleFrom(
@@ -161,20 +170,32 @@ class _ViewLoginScreenState extends State<ViewLoginScreen> {
                                     borderRadius: BorderRadius.circular(24),
                                   ),
                                 ),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Text(
-                                      'Log In',
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        color: w_text,
+                                child: isLoading
+                                    ? const SizedBox(
+                                        width: 24,
+                                        height: 24,
+                                        child: CircularProgressIndicator(
+                                          valueColor:
+                                              AlwaysStoppedAnimation<Color>(
+                                                  Colors.white),
+                                          strokeWidth: 2,
+                                        ),
+                                      )
+                                    : Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Text(
+                                            'Log In',
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                              color: w_text,
+                                            ),
+                                          ),
+                                          const SizedBox(width: 8),
+                                          Icon(Icons.arrow_forward,
+                                              color: w_text),
+                                        ],
                                       ),
-                                    ),
-                                    const SizedBox(width: 8),
-                                    Icon(Icons.arrow_forward, color: w_text),
-                                  ],
-                                ),
                               ),
 
                               const SizedBox(height: 40),

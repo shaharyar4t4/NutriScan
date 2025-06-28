@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nutriscan/core/constants/app_colors.dart';
-import 'package:nutriscan/feacture/auth/controller/login_controller.dart'
-    show LoginController;
+import 'package:nutriscan/feacture/auth/controller/login_controller.dart';
 
 class ViewLoginScreen extends StatefulWidget {
   const ViewLoginScreen({super.key});
@@ -50,7 +49,7 @@ class _ViewLoginScreenState extends State<ViewLoginScreen> {
                   ),
                   child: IconButton(
                     onPressed: () {
-                      Get.toNamed('/onboredscreen');
+                      Get.toNamed('/onboredscreen'); // keep your onboard route
                     },
                     icon: Icon(Icons.arrow_back_ios_new, color: b_text),
                   ),
@@ -146,11 +145,12 @@ class _ViewLoginScreenState extends State<ViewLoginScreen> {
 
                               const SizedBox(height: 24),
 
-                              // Register Button
+                              // Log In Button ✅
                               ElevatedButton(
                                 onPressed: () {
                                   if (_formKey.currentState!.validate()) {
-                                    controller.handleRegister(context);
+                                    controller.handleLogin(
+                                        context); // FIX: use handleLogin ✅
                                   }
                                 },
                                 style: ElevatedButton.styleFrom(
@@ -176,7 +176,10 @@ class _ViewLoginScreenState extends State<ViewLoginScreen> {
                                   ],
                                 ),
                               ),
+
                               const SizedBox(height: 40),
+
+                              // Go to Sign Up
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
@@ -201,7 +204,7 @@ class _ViewLoginScreenState extends State<ViewLoginScreen> {
                                     ),
                                   ),
                                 ],
-                              )
+                              ),
                             ],
                           ),
                         ),

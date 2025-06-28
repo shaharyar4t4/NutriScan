@@ -1,4 +1,3 @@
-// lib/views/view_signup_screen.dart
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nutriscan/core/constants/app_colors.dart';
@@ -171,10 +170,10 @@ class _ViewSignUpScreenState extends State<ViewSignUpScreen> {
 
                               // Sign Up Button
                               ElevatedButton(
-                                onPressed: () {
+                                onPressed: () async {
                                   if (_formKey.currentState!.validate()) {
-                                    controller.handleSignUp(context);
-                                    Get.offAllNamed('/loginScreen');
+                                    final result =
+                                        await controller.handleSignUp(context);
                                   }
                                 },
                                 style: ElevatedButton.styleFrom(

@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthServices {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   Future<String?> login(String email, String password) async {
     try {
@@ -29,8 +31,16 @@ class AuthServices {
         password: password.trim(),
       );
 
-      // 👤 Update displayName
+      // ✅ Also update Firebase Auth displayName
       await credential.user?.updateDisplayName(fullName.trim());
+
+      // ✅ Save to Firestore 'users' collection
+      await _firestore.collection('users').doc(credential.user?.uid).set({
+        'uid': credential.user?.uid,
+        'name': fullName.trim(),
+        'email': email.trim(),
+        'createdAt': FieldValue.serverTimestamp(),
+      });
 
       return "success";
     } on FirebaseAuthException catch (e) {

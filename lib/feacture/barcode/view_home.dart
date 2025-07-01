@@ -1,5 +1,11 @@
 import 'package:barcode_scan2/barcode_scan2.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nutriscan/core/constants/app_colors.dart';
+import 'package:nutriscan/feacture/auth/controller/sigup_controller.dart';
+import 'package:nutriscan/feacture/auth/services/auth_services.dart';
 import 'package:openfoodfacts/openfoodfacts.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -15,6 +21,95 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   String? _barcode;
   bool _isLoading = false;
+  String? fullName;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getUserName();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Column(
+        children: [
+          Container(
+            height: MediaQuery.of(context).size.height * 0.25,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  bg_up,
+                  bg_down,
+                ],
+              ),
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(30),
+                bottomRight: Radius.circular(30),
+              ),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Icon(Icons.menu, color: Colors.white, size: 30),
+                      Image.asset(
+                        'assets/images/main_log.png',
+                        width: 90,
+                        height: 90,
+                      ),
+                      Icon(CupertinoIcons.bell, color: Colors.white, size: 30),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        fullName != null ? 'Hi, $fullName!' : 'Hi, User!',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  Future<void> getUserName() async {
+    final user = FirebaseAuth.instance.currentUser;
+
+    if (user != null) {
+      final doc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(user.uid)
+          .get();
+
+      if (doc.exists) {
+        setState(() {
+          fullName = doc['name'];
+        });
+      } else {
+        // fallback to displayName if Firestore not found
+        setState(() {
+          fullName = user.displayName ?? "User";
+        });
+      }
+    }
+  }
 
   Future<void> scanBarcode() async {
     try {
@@ -163,27 +258,5 @@ class _HomeScreenState extends State<HomeScreen> {
       );
       return null;
     }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Food Product Scanner')),
-      body: Center(
-        child: _isLoading
-            ? CircularProgressIndicator()
-            : Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ElevatedButton(
-                    onPressed: scanBarcode,
-                    child: Text('Scan Barcode'),
-                  ),
-                  SizedBox(height: 16),
-                  if (_barcode != null) Text('Last Scanned: $_barcode'),
-                ],
-              ),
-      ),
-    );
   }
 }

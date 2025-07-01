@@ -1,8 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:nutriscan/feacture/auth/view/view_loginscreen.dart';
-import 'package:nutriscan/feacture/barcode/view_home.dart';
-import 'package:nutriscan/feacture/splash/controller/splash_controller.dart';
+import 'package:nutriscan/feacture/barcode/home_screen/view_home_screen.dart';
 import 'package:nutriscan/feacture/splash/views/view_splashscreen.dart';
 
 class AuthWrapper extends StatelessWidget {

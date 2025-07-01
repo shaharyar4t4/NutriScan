@@ -5,7 +5,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:nutriscan/core/router/app_routes.dart';
 import 'package:nutriscan/feacture/auth/firebase/firebase_options.dart';
 import 'package:nutriscan/feacture/auth/services/auth_wrapper.dart';
-import 'package:nutriscan/feacture/splash/views/view_splashscreen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

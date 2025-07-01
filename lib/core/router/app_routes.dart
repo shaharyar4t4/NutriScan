@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:nutriscan/feacture/auth/view/view_loginscreen.dart';
 import 'package:nutriscan/feacture/auth/view/view_signupscreen.dart';
-import 'package:nutriscan/feacture/barcode/view_home.dart';
+import 'package:nutriscan/feacture/barcode/home_screen/view_home_screen.dart';
 import 'package:nutriscan/feacture/onboarding/veiws/view_onboredcar.dart';
 import 'package:nutriscan/feacture/onboarding/veiws/view_onboredscreen.dart';
 

@@ -120,10 +120,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: Text(
                           "Scan a Product",
                           style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold),
+                              fontSize: 20, fontWeight: FontWeight.bold),
                         ),
                       ),
-                      const SizedBox(height: 10),
+                      const SizedBox(height: 7),
                       ElevatedButton.icon(
                         onPressed: () {
                           BarcodeService.scanBarcode(
@@ -140,19 +140,18 @@ class _HomeScreenState extends State<HomeScreen> {
                             },
                           );
                         },
-                        icon: Icon(Icons.camera_alt,
+                        icon: Icon(Icons.barcode_reader,
                             color: Colors.white, size: 24),
                         label: Text("Scan Now"),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor:
-                              Color(0xFF1AC98E), // green button color
+                          backgroundColor: bg_down, // green button color
                           foregroundColor: Colors.white,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30),
                           ),
                         ),
                       ),
-                      if (_barcode != null) Text('Last Scanned: $_barcode'),
+                      // if (_barcode != null) Text('Last Scanned: $_barcode'),
                     ],
                   ),
                   Stack(

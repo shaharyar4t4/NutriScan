@@ -5,6 +5,7 @@ class AuthServices {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
+  // ✅ LOGIN
   Future<String?> login(String email, String password) async {
     try {
       await _auth.signInWithEmailAndPassword(
@@ -23,6 +24,7 @@ class AuthServices {
     }
   }
 
+  // ✅ REGISTER
   Future<String?> register(
       String fullName, String email, String password) async {
     try {
@@ -31,10 +33,9 @@ class AuthServices {
         password: password.trim(),
       );
 
-      // ✅ Also update Firebase Auth displayName
       await credential.user?.updateDisplayName(fullName.trim());
 
-      // ✅ Save to Firestore 'users' collection
+      // Also save in Firestore
       await _firestore.collection('users').doc(credential.user?.uid).set({
         'uid': credential.user?.uid,
         'name': fullName.trim(),
@@ -52,7 +53,24 @@ class AuthServices {
     }
   }
 
+  // ✅ LOGOUT
   Future<void> logout() async {
     await _auth.signOut();
+  }
+
+  // ✅ FETCH NAME
+  Future<String> getUserName() async {
+    final user = _auth.currentUser;
+
+    if (user != null) {
+      final doc = await _firestore.collection('users').doc(user.uid).get();
+      if (doc.exists) {
+        return doc['name'] as String;
+      } else {
+        return user.displayName ?? "User";
+      }
+    } else {
+      return "User";
+    }
   }
 }

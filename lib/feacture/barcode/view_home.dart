@@ -4,7 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nutriscan/core/constants/app_colors.dart';
-import 'package:nutriscan/feacture/auth/controller/sigup_controller.dart';
 import 'package:nutriscan/feacture/auth/services/auth_services.dart';
 import 'package:openfoodfacts/openfoodfacts.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -22,12 +21,20 @@ class _HomeScreenState extends State<HomeScreen> {
   String? _barcode;
   bool _isLoading = false;
   String? fullName;
+  final AuthServices _auth = AuthServices();
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    getUserName();
+    fetchName();
+  }
+
+  void fetchName() async {
+    final name = await _auth.getUserName();
+    setState(() {
+      fullName = name;
+    });
   }
 
   @override
@@ -58,17 +65,35 @@ class _HomeScreenState extends State<HomeScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Icon(Icons.menu, color: Colors.white, size: 30),
+                      Container(
+                        width: 40,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          color: icon_bg,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Icon(Icons.menu, color: Colors.white, size: 30),
+                      ),
                       Image.asset(
                         'assets/images/main_log.png',
                         width: 90,
                         height: 90,
                       ),
-                      Icon(CupertinoIcons.bell, color: Colors.white, size: 30),
+                      Container(
+                        width: 40,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          color: icon_bg,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Icon(CupertinoIcons.bell,
+                            color: Colors.white, size: 30),
+                      ),
                     ],
                   ),
+                  const SizedBox(height: 20),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
                         fullName != null ? 'Hi, $fullName!' : 'Hi, User!',
@@ -83,32 +108,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
             ),
-          )
+          ),
         ],
       ),
     );
-  }
-
-  Future<void> getUserName() async {
-    final user = FirebaseAuth.instance.currentUser;
-
-    if (user != null) {
-      final doc = await FirebaseFirestore.instance
-          .collection('users')
-          .doc(user.uid)
-          .get();
-
-      if (doc.exists) {
-        setState(() {
-          fullName = doc['name'];
-        });
-      } else {
-        // fallback to displayName if Firestore not found
-        setState(() {
-          fullName = user.displayName ?? "User";
-        });
-      }
-    }
   }
 
   Future<void> scanBarcode() async {

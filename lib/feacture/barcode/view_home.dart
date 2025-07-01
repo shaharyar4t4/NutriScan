@@ -1,6 +1,4 @@
 import 'package:barcode_scan2/barcode_scan2.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nutriscan/core/constants/app_colors.dart';
@@ -43,7 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Column(
         children: [
           Container(
-            height: MediaQuery.of(context).size.height * 0.25,
+            height: MediaQuery.of(context).size.height * 0.3,
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
@@ -54,8 +52,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
               borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(30),
-                bottomRight: Radius.circular(30),
+                bottomLeft: Radius.circular(40),
+                bottomRight: Radius.circular(40),
               ),
             ),
             child: Padding(
@@ -91,7 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 10),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -102,6 +100,67 @@ class _HomeScreenState extends State<HomeScreen> {
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
                         ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(height: 20),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              height: MediaQuery.of(context).size.height * 0.2,
+              decoration: BoxDecoration(
+                color: card_bg,
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: Text(
+                          "Scan a Product",
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      ElevatedButton.icon(
+                        onPressed: scanBarcode,
+                        icon: Icon(Icons.camera_alt,
+                            color: Colors.white, size: 24),
+                        label: Text("Scan Now"),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor:
+                              Color(0xFF1AC98E), // green button color
+                          foregroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                        ),
+                      ),
+                      if (_barcode != null) Text('Last Scanned: $_barcode'),
+                    ],
+                  ),
+                  Stack(
+                    children: [
+                      Positioned(
+                        top: 10,
+                        left: 10,
+                        child: Image.asset(
+                          'assets/images/bgcardicon.png',
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      Image.asset(
+                        'assets/images/bgcardper.png',
+                        fit: BoxFit.cover,
                       ),
                     ],
                   ),

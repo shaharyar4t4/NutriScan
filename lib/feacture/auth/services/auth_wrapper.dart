@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:nutriscan/feacture/barcode/home_screen/view_home_screen.dart';
+import 'package:nutriscan/feacture/navigation_bar/nav_bar_ui/nav_bar_ui.dart';
 import 'package:nutriscan/feacture/splash/views/view_splashscreen.dart';
 
 class AuthWrapper extends StatelessWidget {
@@ -19,7 +19,7 @@ class AuthWrapper extends StatelessWidget {
 
         // If user is logged in
         if (snapshot.hasData) {
-          return HomeScreen();
+          return NavBar();
         }
 
         // If user is not logged in

@@ -22,7 +22,7 @@ class LoginController {
 
     if (result == "success") {
       // ✅ AuthWrapper will redirect automatically
-      Get.offAllNamed('/home');
+      Get.offAllNamed('/navbar');
       Get.snackbar(
         "Login Successfully",
         "Welcome back!",

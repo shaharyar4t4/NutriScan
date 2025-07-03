@@ -14,7 +14,6 @@ class _HomeScreenState extends State<HomeScreen> {
   bool _isLoading = false;
   String? fullName;
   final AuthServices _auth = AuthServices();
-
   @override
   void initState() {
     super.initState();
@@ -30,15 +29,11 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final deviceHeight = MediaQuery.of(context).size.height;
-    final deviceWidth = MediaQuery.of(context).size.width;
-
     return Scaffold(
       body: Column(
         children: [
           Container(
-            height: deviceHeight * 0.3,
-            width: double.infinity,
+            height: MediaQuery.of(context).size.height * 0.3,
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
@@ -49,48 +44,44 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
               borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(deviceWidth * 0.1),
-                bottomRight: Radius.circular(deviceWidth * 0.1),
+                bottomLeft: Radius.circular(40),
+                bottomRight: Radius.circular(40),
               ),
             ),
             child: Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: deviceWidth * 0.05,
-                vertical: deviceHeight * 0.05,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
               child: Column(
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
-                        width: deviceWidth * 0.1,
-                        height: deviceWidth * 0.1,
+                        width: 40,
+                        height: 40,
                         decoration: BoxDecoration(
                           color: icon_bg,
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        child: Icon(Icons.menu,
-                            color: Colors.white, size: deviceWidth * 0.07),
+                        child: Icon(Icons.menu, color: Colors.white, size: 30),
                       ),
                       Image.asset(
                         'assets/images/main_log.png',
-                        width: deviceWidth * 0.25,
-                        height: deviceWidth * 0.25,
+                        width: 90,
+                        height: 90,
                       ),
                       Container(
-                        width: deviceWidth * 0.1,
-                        height: deviceWidth * 0.1,
+                        width: 40,
+                        height: 40,
                         decoration: BoxDecoration(
                           color: icon_bg,
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Icon(CupertinoIcons.bell,
-                            color: Colors.white, size: deviceWidth * 0.07),
+                            color: Colors.white, size: 30),
                       ),
                     ],
                   ),
-                  SizedBox(height: deviceHeight * 0.015),
+                  const SizedBox(height: 10),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -98,7 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         fullName != null ? 'Hi, $fullName!' : 'Hi, User!',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: deviceWidth * 0.06,
+                          fontSize: 24,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -108,92 +99,75 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-          SizedBox(height: deviceHeight * 0.02),
+          const SizedBox(height: 20),
           Padding(
-            padding: EdgeInsets.all(deviceWidth * 0.02),
+            padding: const EdgeInsets.all(8.0),
             child: Container(
-              height: deviceHeight * 0.2,
-              width: double.infinity,
+              height: MediaQuery.of(context).size.height * 0.2,
               decoration: BoxDecoration(
                 color: card_bg,
-                borderRadius: BorderRadius.circular(deviceWidth * 0.05),
+                borderRadius: BorderRadius.circular(20),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Flexible(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: deviceWidth * 0.05),
-                          child: Text(
-                            "Scan a Product",
-                            style: TextStyle(
-                              fontSize: deviceWidth * 0.05,
-                              fontWeight: FontWeight.bold,
-                            ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: Text(
+                          "Scan a Product",
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      const SizedBox(height: 7),
+                      ElevatedButton.icon(
+                        onPressed: () {
+                          BarcodeService.scanBarcode(
+                            context: context,
+                            onBarcodeScanned: (barcode) {
+                              setState(() {
+                                _barcode = barcode;
+                              });
+                            },
+                            onLoading: (isLoading) {
+                              setState(() {
+                                _isLoading = isLoading;
+                              });
+                            },
+                          );
+                        },
+                        icon: Icon(Icons.barcode_reader,
+                            color: Colors.white, size: 24),
+                        label: Text("Scan Now"),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: bg_down, // green button color
+                          foregroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
                           ),
                         ),
-                        SizedBox(height: deviceHeight * 0.01),
-                        ElevatedButton.icon(
-                          onPressed: () {
-                            BarcodeService.scanBarcode(
-                              context: context,
-                              onBarcodeScanned: (barcode) {
-                                setState(() {
-                                  _barcode = barcode;
-                                });
-                              },
-                              onLoading: (isLoading) {
-                                setState(() {
-                                  _isLoading = isLoading;
-                                });
-                              },
-                            );
-                          },
-                          icon: Icon(Icons.qr_code_scanner,
-                              color: Colors.white, size: deviceWidth * 0.06),
-                          label: Text(
-                            "Scan Now",
-                            style: TextStyle(fontSize: deviceWidth * 0.045),
-                          ),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: bg_down,
-                            foregroundColor: Colors.white,
-                            padding: EdgeInsets.symmetric(
-                              horizontal: deviceWidth * 0.05,
-                              vertical: deviceHeight * 0.015,
-                            ),
-                            shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.circular(deviceWidth * 0.05),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                      // if (_barcode != null) Text('Last Scanned: $_barcode'),
+                    ],
                   ),
-                  Flexible(
-                    child: Stack(
-                      children: [
-                        Positioned(
-                          top: deviceHeight * 0.01,
-                          left: deviceWidth * 0.02,
-                          child: Image.asset(
-                            'assets/images/bgcardicon.png',
-                            fit: BoxFit.cover,
-                            width: deviceWidth * 0.25,
-                          ),
-                        ),
-                        Image.asset(
-                          'assets/images/bgcardper.png',
+                  Stack(
+                    children: [
+                      Positioned(
+                        top: 10,
+                        left: 10,
+                        child: Image.asset(
+                          'assets/images/bgcardicon.png',
                           fit: BoxFit.cover,
-                          width: deviceWidth * 0.25,
                         ),
-                      ],
-                    ),
+                      ),
+                      Image.asset(
+                        'assets/images/bgcardper.png',
+                        fit: BoxFit.cover,
+                      ),
+                    ],
                   ),
                 ],
               ),

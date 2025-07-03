@@ -141,7 +141,17 @@ class _HomeScreenState extends State<HomeScreen> {
                         },
                         icon: Icon(Icons.barcode_reader,
                             color: Colors.white, size: 24),
-                        label: Text("Scan Now"),
+                        label: _isLoading
+                            ? SizedBox(
+                                width: 20,
+                                height: 20,
+                                child: CircularProgressIndicator(
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                      Colors.white),
+                                  strokeWidth: 2,
+                                ),
+                              )
+                            : Text("Scan Now"),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: bg_down, // green button color
                           foregroundColor: Colors.white,

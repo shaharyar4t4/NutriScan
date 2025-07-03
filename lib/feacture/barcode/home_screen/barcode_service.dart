@@ -1,7 +1,7 @@
 import 'package:barcode_scan2/barcode_scan2.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:nutriscan/feacture/barcode/product_detial/product_details_screen.dart';
+import 'package:nutriscan/feacture/barcode/product_detial/view_product_details.dart';
 import 'package:openfoodfacts/openfoodfacts.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;

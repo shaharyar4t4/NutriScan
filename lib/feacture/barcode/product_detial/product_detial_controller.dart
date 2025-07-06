@@ -26,7 +26,17 @@ class ProductController extends GetxController {
     }
   }
 
-  /// ✅ Call Prediction API and update observable fields
+  /// ✅ Percent calculation helpers
+  double getCaloriesPercent(double? kcal) {
+    const dailyCalories = 2000.0;
+    return ((kcal ?? 0) / dailyCalories).clamp(0.0, 1.0);
+  }
+
+  double getNutrientPercent(double? value, double max) {
+    return ((value ?? 0) / max).clamp(0.0, 1.0);
+  }
+
+  /// ✅ Call Prediction API
   Future<void> sendToPredictionAPI(Product product) async {
     try {
       final nutriments = product.nutriments;
@@ -38,11 +48,11 @@ class ProductController extends GetxController {
 
       final Map<String, dynamic> payload = {
         "Calories": nutriments.extractEnergyKcal()?.toInt() ?? 0,
-        "Protein": nutriments.extractProteins()?.toDouble() ?? 0.0,
-        "Carbohydrates": nutriments.extractCarbohydrates()?.toDouble() ?? 0.0,
-        "Fat": nutriments.extractFat()?.toDouble() ?? 0.0,
-        "Fiber": nutriments.extractFiber()?.toDouble() ?? 0.0,
-        "Sugars": nutriments.extractSugars()?.toDouble() ?? 0.0,
+        "Protein": nutriments.extractProteins() ?? 0.0,
+        "Carbohydrates": nutriments.extractCarbohydrates() ?? 0.0,
+        "Fat": nutriments.extractFat() ?? 0.0,
+        "Fiber": nutriments.extractFiber() ?? 0.0,
+        "Sugars": nutriments.extractSugars() ?? 0.0,
         "Sodium": nutriments.extractSodium()?.toInt() ?? 0,
         "Cholesterol": nutriments.extractCholesterol()?.toInt() ?? 0,
         "Water_Intake": 0,
@@ -79,7 +89,7 @@ class ProductController extends GetxController {
   }
 }
 
-/// ✅ Extension: safe nutriments extract
+/// ✅ Safe extract extension same as before...
 extension NutrimentsSafeExtract on Nutriments? {
   double? extractEnergyKcal() {
     if (this == null) return null;

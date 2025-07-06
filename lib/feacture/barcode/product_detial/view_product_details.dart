@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:percent_indicator/percent_indicator.dart';
 import 'package:nutriscan/core/constants/app_colors.dart';
 import 'package:nutriscan/feacture/barcode/product_detial/product_detial_controller.dart';
 import 'package:openfoodfacts/openfoodfacts.dart';
@@ -12,10 +13,7 @@ class ProductDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(ProductController());
-
-    // Call prediction when screen builds
     controller.sendToPredictionAPI(product);
-
     final List<String> imageUrls = controller.getImageUrls(product);
 
     return Scaffold(
@@ -38,9 +36,6 @@ class ProductDetailsScreen extends StatelessWidget {
             imageUrls.isNotEmpty
                 ? Container(
                     height: 200,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
                     child: PageView.builder(
                       itemCount: imageUrls.length,
                       itemBuilder: (context, index) {
@@ -63,8 +58,6 @@ class ProductDetailsScreen extends StatelessWidget {
                     child: Center(child: Text('No images available')),
                   ),
             SizedBox(height: 16),
-
-            /// Prediction Card
             Card(
               elevation: 1,
               shape: RoundedRectangleBorder(
@@ -92,8 +85,6 @@ class ProductDetailsScreen extends StatelessWidget {
               ),
             ),
             SizedBox(height: 16),
-
-            /// Info Card
             Card(
               elevation: 1,
               shape: RoundedRectangleBorder(
@@ -116,20 +107,11 @@ class ProductDetailsScreen extends StatelessWidget {
                             fontSize: 18,
                             color: bg_down)),
                     Text(product.brands ?? 'Not available'),
-                    Divider(),
-                    Text('Categories:',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                            color: bg_down)),
-                    Text(product.categories ?? 'Not available'),
                   ],
                 ),
               ),
             ),
             SizedBox(height: 16),
-
-            /// Nutrients Card
             Card(
               elevation: 1,
               shape: RoundedRectangleBorder(
@@ -146,88 +128,98 @@ class ProductDetailsScreen extends StatelessWidget {
                             color: bg_down)),
                     Text(controller.formatValue(
                         product.nutriments.extractEnergyKcal(), 'kcal')),
+                    SizedBox(height: 8),
+                    LinearPercentIndicator(
+                      lineHeight: 8,
+                      percent: controller.getCaloriesPercent(
+                          product.nutriments.extractEnergyKcal()),
+                      progressColor: Colors.green,
+                      backgroundColor: Colors.grey.shade300,
+                      barRadius: Radius.circular(8),
+                    ),
                     Divider(),
                     Text('Nutrients:',
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 18,
                             color: bg_down)),
-                    Text(
-                      'Fat: ${controller.formatValue(product.nutriments.extractFat(), 'g')}\n'
-                      'Sugar: ${controller.formatValue(product.nutriments.extractSugars(), 'g')}\n'
-                      'Protein: ${controller.formatValue(product.nutriments.extractProteins(), 'g')}\n'
-                      'Carbohydrates: ${controller.formatValue(product.nutriments.extractCarbohydrates(), 'g')}\n'
-                      'Fiber: ${controller.formatValue(product.nutriments.extractFiber(), 'g')}\n'
-                      'Sodium: ${controller.formatValue(product.nutriments.extractSodium(), 'mg')}\n'
-                      'Cholesterol: ${controller.formatValue(product.nutriments.extractCholesterol(), 'mg')}',
+                    nutrientIndicator(
+                      'Fat',
+                      product.nutriments.extractFat(),
+                      'g',
+                      controller.getNutrientPercent(
+                          product.nutriments.extractFat(), 70),
+                    ),
+                    nutrientIndicator(
+                      'Sugar',
+                      product.nutriments.extractSugars(),
+                      'g',
+                      controller.getNutrientPercent(
+                          product.nutriments.extractSugars(), 50),
+                    ),
+                    nutrientIndicator(
+                      'Protein',
+                      product.nutriments.extractProteins(),
+                      'g',
+                      controller.getNutrientPercent(
+                          product.nutriments.extractProteins(), 50),
+                    ),
+                    nutrientIndicator(
+                      'Carbohydrates',
+                      product.nutriments.extractCarbohydrates(),
+                      'g',
+                      controller.getNutrientPercent(
+                          product.nutriments.extractCarbohydrates(), 300),
+                    ),
+                    nutrientIndicator(
+                      'Fiber',
+                      product.nutriments.extractFiber(),
+                      'g',
+                      controller.getNutrientPercent(
+                          product.nutriments.extractFiber(), 30),
+                    ),
+                    nutrientIndicator(
+                      'Sodium',
+                      product.nutriments.extractSodium(),
+                      'mg',
+                      controller.getNutrientPercent(
+                          product.nutriments.extractSodium(), 2300),
+                    ),
+                    nutrientIndicator(
+                      'Cholesterol',
+                      product.nutriments.extractCholesterol(),
+                      'mg',
+                      controller.getNutrientPercent(
+                          product.nutriments.extractCholesterol(), 300),
                     ),
                   ],
                 ),
               ),
             ),
             SizedBox(height: 16),
-
-            /// Ingredients Card
-            Card(
-              elevation: 2,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8)),
-              child: Padding(
-                padding: EdgeInsets.all(12.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('Ingredients:',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                            color: bg_down)),
-                    SizedBox(height: 8),
-                    Table(
-                      border: TableBorder.all(color: Colors.grey),
-                      columnWidths: {
-                        0: FlexColumnWidth(2),
-                        1: FlexColumnWidth(3),
-                      },
-                      children: [
-                        TableRow(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Text('Ingredient',
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.bold)),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Text('Details',
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.bold)),
-                            ),
-                          ],
-                        ),
-                        if (product.ingredientsText != null &&
-                            product.ingredientsText!.isNotEmpty)
-                          TableRow(
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Text('All Ingredients'),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Text(product.ingredientsText!),
-                              ),
-                            ],
-                          ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget nutrientIndicator(
+      String label, double? value, String unit, double percent) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 6.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('$label: ${value?.toStringAsFixed(1) ?? 'N/A'} $unit'),
+          SizedBox(height: 8),
+          LinearPercentIndicator(
+            lineHeight: 8,
+            percent: percent,
+            progressColor: Colors.blue,
+            backgroundColor: Colors.grey.shade300,
+            barRadius: Radius.circular(8),
+          ),
+        ],
       ),
     );
   }

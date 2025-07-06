@@ -11,30 +11,30 @@ class ProductDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = ProductController();
+    final controller = Get.put(ProductController());
 
-    // Collect available image URLs using controller
+    // Call prediction when screen builds
+    controller.sendToPredictionAPI(product);
+
     final List<String> imageUrls = controller.getImageUrls(product);
 
     return Scaffold(
       appBar: AppBar(
-          automaticallyImplyLeading: false,
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back_ios_new_rounded, color: bg_down),
-            onPressed: () {
-              Get.toNamed('/navbar');
-            },
-          ),
-          backgroundColor: card_bg,
-          title: Text(
-            product.productName ?? 'Unknown Product',
-            style: TextStyle(color: bg_down),
-          )),
+        automaticallyImplyLeading: false,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios_new_rounded, color: bg_down),
+          onPressed: () => Get.toNamed('/navbar'),
+        ),
+        backgroundColor: card_bg,
+        title: Text(
+          product.productName ?? 'Unknown Product',
+          style: TextStyle(color: bg_down),
+        ),
+      ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
         child: ListView(
           children: [
-            // PageView for multiple images
             imageUrls.isNotEmpty
                 ? Container(
                     height: 200,
@@ -47,11 +47,8 @@ class ProductDetailsScreen extends StatelessWidget {
                         return Image.network(
                           imageUrls[index],
                           fit: BoxFit.contain,
-                          errorBuilder: (context, error, stackTrace) =>
-                              Container(
-                            height: 200,
-                            color: Colors.grey[100],
-                            child: Center(child: Text('Image not available')),
+                          errorBuilder: (_, __, ___) => Center(
+                            child: Text('Image not available'),
                           ),
                         );
                       },
@@ -66,7 +63,37 @@ class ProductDetailsScreen extends StatelessWidget {
                     child: Center(child: Text('No images available')),
                   ),
             SizedBox(height: 16),
-            // Product Info Card
+
+            /// Prediction Card
+            Card(
+              elevation: 1,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8)),
+              child: Padding(
+                padding: EdgeInsets.all(12.0),
+                child: Obx(() => Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Prediction:',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                                color: bg_down)),
+                        Text(controller.predictionResult.value),
+                        Divider(),
+                        Text('Health Risks:',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                                color: bg_down)),
+                        Text(controller.healthRisks.value),
+                      ],
+                    )),
+              ),
+            ),
+            SizedBox(height: 16),
+
+            /// Info Card
             Card(
               elevation: 1,
               shape: RoundedRectangleBorder(
@@ -101,7 +128,8 @@ class ProductDetailsScreen extends StatelessWidget {
               ),
             ),
             SizedBox(height: 16),
-            // Calories and Nutrients Card
+
+            /// Nutrients Card
             Card(
               elevation: 1,
               shape: RoundedRectangleBorder(
@@ -116,10 +144,8 @@ class ProductDetailsScreen extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                             fontSize: 18,
                             color: bg_down)),
-                    Text(
-                      controller.formatValue(
-                          product.nutriments.extractEnergyKcal(), 'kcal'),
-                    ),
+                    Text(controller.formatValue(
+                        product.nutriments.extractEnergyKcal(), 'kcal')),
                     Divider(),
                     Text('Nutrients:',
                         style: TextStyle(
@@ -129,14 +155,19 @@ class ProductDetailsScreen extends StatelessWidget {
                     Text(
                       'Fat: ${controller.formatValue(product.nutriments.extractFat(), 'g')}\n'
                       'Sugar: ${controller.formatValue(product.nutriments.extractSugars(), 'g')}\n'
-                      'Protein: ${controller.formatValue(product.nutriments.extractProteins(), 'g')}',
+                      'Protein: ${controller.formatValue(product.nutriments.extractProteins(), 'g')}\n'
+                      'Carbohydrates: ${controller.formatValue(product.nutriments.extractCarbohydrates(), 'g')}\n'
+                      'Fiber: ${controller.formatValue(product.nutriments.extractFiber(), 'g')}\n'
+                      'Sodium: ${controller.formatValue(product.nutriments.extractSodium(), 'mg')}\n'
+                      'Cholesterol: ${controller.formatValue(product.nutriments.extractCholesterol(), 'mg')}',
                     ),
                   ],
                 ),
               ),
             ),
             SizedBox(height: 16),
-            // Ingredients Table
+
+            /// Ingredients Card
             Card(
               elevation: 2,
               shape: RoundedRectangleBorder(

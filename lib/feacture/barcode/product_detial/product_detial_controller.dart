@@ -1,6 +1,14 @@
+import 'package:get/get.dart';
 import 'package:openfoodfacts/openfoodfacts.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
-class ProductController {
+class ProductController extends GetxController {
+  /// Observable fields for UI
+  var predictionResult = ''.obs;
+  var healthRisks = ''.obs;
+
+  /// Original helpers
   List<String> getImageUrls(Product product) {
     return [
       if (product.imageFrontUrl != null) product.imageFrontUrl!,
@@ -17,9 +25,61 @@ class ProductController {
       return '${value.toStringAsFixed(1)} $unit';
     }
   }
+
+  /// ✅ Call Prediction API and update observable fields
+  Future<void> sendToPredictionAPI(Product product) async {
+    try {
+      final nutriments = product.nutriments;
+      if (nutriments == null) {
+        predictionResult.value = 'No nutriments available';
+        healthRisks.value = 'Unknown';
+        return;
+      }
+
+      final Map<String, dynamic> payload = {
+        "Calories": nutriments.extractEnergyKcal()?.toInt() ?? 0,
+        "Protein": nutriments.extractProteins()?.toDouble() ?? 0.0,
+        "Carbohydrates": nutriments.extractCarbohydrates()?.toDouble() ?? 0.0,
+        "Fat": nutriments.extractFat()?.toDouble() ?? 0.0,
+        "Fiber": nutriments.extractFiber()?.toDouble() ?? 0.0,
+        "Sugars": nutriments.extractSugars()?.toDouble() ?? 0.0,
+        "Sodium": nutriments.extractSodium()?.toInt() ?? 0,
+        "Cholesterol": nutriments.extractCholesterol()?.toInt() ?? 0,
+        "Water_Intake": 0,
+        "Meal_Type_Dinner": false,
+        "Meal_Type_Lunch": true,
+        "Meal_Type_Snack": false,
+        "Category_Dairy": false,
+        "Category_Fruits": false,
+        "Category_Grains": false,
+        "Category_Meat": false,
+        "Category_Snacks": false,
+        "Category_Vegetables": false,
+      };
+
+      final response = await http.post(
+        Uri.parse("http://192.168.1.106:8000/predict"),
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode(payload),
+      );
+
+      if (response.statusCode == 200) {
+        final result = jsonDecode(response.body);
+        predictionResult.value = result['Prediction'] ?? 'N/A';
+        healthRisks.value =
+            (result['Health Risks'] as List?)?.join(', ') ?? 'None';
+      } else {
+        predictionResult.value = 'API failed: ${response.statusCode}';
+        healthRisks.value = 'No data';
+      }
+    } catch (e) {
+      predictionResult.value = 'Error: $e';
+      healthRisks.value = 'Error';
+    }
+  }
 }
 
-// Extension for safer nutrient extraction
+/// ✅ Extension: safe nutriments extract
 extension NutrimentsSafeExtract on Nutriments? {
   double? extractEnergyKcal() {
     if (this == null) return null;
@@ -52,6 +112,38 @@ extension NutrimentsSafeExtract on Nutriments? {
     return _parseToDouble(map['proteins_serving']) ??
         _parseToDouble(map['proteins_100g']) ??
         _parseToDouble(map['proteins']);
+  }
+
+  double? extractFiber() {
+    if (this == null) return null;
+    final map = this!.toJson();
+    return _parseToDouble(map['fiber_serving']) ??
+        _parseToDouble(map['fiber_100g']) ??
+        _parseToDouble(map['fiber']);
+  }
+
+  double? extractSodium() {
+    if (this == null) return null;
+    final map = this!.toJson();
+    return _parseToDouble(map['sodium_serving']) ??
+        _parseToDouble(map['sodium_100g']) ??
+        _parseToDouble(map['sodium']);
+  }
+
+  double? extractCholesterol() {
+    if (this == null) return null;
+    final map = this!.toJson();
+    return _parseToDouble(map['cholesterol_serving']) ??
+        _parseToDouble(map['cholesterol_100g']) ??
+        _parseToDouble(map['cholesterol']);
+  }
+
+  double? extractCarbohydrates() {
+    if (this == null) return null;
+    final map = this!.toJson();
+    return _parseToDouble(map['carbohydrates_serving']) ??
+        _parseToDouble(map['carbohydrates_100g']) ??
+        _parseToDouble(map['carbohydrates']);
   }
 }
 

@@ -1,6 +1,8 @@
 import 'package:barcode_scan2/barcode_scan2.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:nutriscan/feacture/barcode/product_detial/product_detial_controller.dart';
 import 'package:nutriscan/feacture/barcode/product_detial/view_product_details.dart';
 import 'package:openfoodfacts/openfoodfacts.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -30,6 +32,10 @@ class BarcodeService {
         onLoading(false);
 
         if (product != null) {
+          // ✅ Call the controller’s prediction function
+          final controller = Get.put(ProductController());
+          await controller.sendToPredictionAPI(product);
+
           Navigator.push(
             context,
             MaterialPageRoute(

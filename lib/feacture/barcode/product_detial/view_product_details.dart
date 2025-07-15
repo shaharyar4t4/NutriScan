@@ -148,35 +148,35 @@ class ProductDetailsScreen extends StatelessWidget {
                       product.nutriments.extractFat(),
                       'g',
                       controller.getNutrientPercent(
-                          product.nutriments.extractFat(), 70),
+                          product.nutriments.extractFat(), 100), //70
                     ),
                     nutrientIndicator(
                       'Sugar',
                       product.nutriments.extractSugars(),
                       'g',
                       controller.getNutrientPercent(
-                          product.nutriments.extractSugars(), 50),
+                          product.nutriments.extractSugars(), 100), //50
                     ),
                     nutrientIndicator(
                       'Protein',
                       product.nutriments.extractProteins(),
                       'g',
                       controller.getNutrientPercent(
-                          product.nutriments.extractProteins(), 50),
+                          product.nutriments.extractProteins(), 100), //50
                     ),
                     nutrientIndicator(
                       'Carbohydrates',
                       product.nutriments.extractCarbohydrates(),
                       'g',
                       controller.getNutrientPercent(
-                          product.nutriments.extractCarbohydrates(), 300),
+                          product.nutriments.extractCarbohydrates(), 300), //300
                     ),
                     nutrientIndicator(
                       'Fiber',
                       product.nutriments.extractFiber(),
                       'g',
                       controller.getNutrientPercent(
-                          product.nutriments.extractFiber(), 30),
+                          product.nutriments.extractFiber(), 100), //30
                     ),
                     nutrientIndicator(
                       'Sodium',

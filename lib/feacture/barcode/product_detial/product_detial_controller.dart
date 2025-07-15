@@ -68,7 +68,7 @@ class ProductController extends GetxController {
       };
 
       final response = await http.post(
-        Uri.parse("http://192.168.1.106:8000/predict"),
+        Uri.parse("http://192.168.1.107:8000/predict"),
         headers: {"Content-Type": "application/json"},
         body: jsonEncode(payload),
       );

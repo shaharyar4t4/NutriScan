@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:nutriscan/core/constants/app_colors.dart';
 import 'package:nutriscan/feacture/auth/services/auth_services.dart';
 import 'package:nutriscan/feacture/barcode/home_screen/barcode_service.dart';
+import 'package:nutriscan/feacture/profile/view/view_profilescreen.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -21,15 +22,17 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void fetchName() async {
-    final name = await _auth.getUserName();
+    final userData = await _auth.getUserData();
     setState(() {
-      fullName = name;
+      fullName = userData['name'];
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     return Scaffold(
+      key: _scaffoldKey,
       body: Column(
         children: [
           Container(
@@ -56,13 +59,18 @@ class _HomeScreenState extends State<HomeScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
-                        width: 40,
-                        height: 40,
+                        width: 45,
+                        height: 45,
                         decoration: BoxDecoration(
                           color: icon_bg,
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        child: Icon(Icons.menu, color: Colors.white, size: 30),
+                        child: IconButton(
+                            onPressed: () {
+                              _scaffoldKey.currentState?.openDrawer();
+                            },
+                            icon: Icon(Icons.menu,
+                                color: Colors.white, size: 30)),
                       ),
                       Image.asset(
                         'assets/images/main_log.png',
@@ -70,8 +78,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         height: 90,
                       ),
                       Container(
-                        width: 40,
-                        height: 40,
+                        width: 45,
+                        height: 45,
                         decoration: BoxDecoration(
                           color: icon_bg,
                           borderRadius: BorderRadius.circular(10),
@@ -185,6 +193,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
+      drawer: ProfileScreen(),
     );
   }
 }

@@ -26,7 +26,10 @@ class AuthServices {
 
   // ✅ REGISTER
   Future<String?> register(
-      String fullName, String email, String password) async {
+    String fullName,
+    String email,
+    String password,
+  ) async {
     try {
       final credential = await _auth.createUserWithEmailAndPassword(
         email: email.trim(),
@@ -58,19 +61,28 @@ class AuthServices {
     await _auth.signOut();
   }
 
-  // ✅ FETCH NAME
-  Future<String> getUserName() async {
+  // ✅ FETCH NAME & EMAIL TOGETHER
+  Future<Map<String, String>> getUserData() async {
     final user = _auth.currentUser;
 
     if (user != null) {
       final doc = await _firestore.collection('users').doc(user.uid).get();
       if (doc.exists) {
-        return doc['name'] as String;
+        return {
+          'name': doc['name'] as String? ?? user.displayName ?? "User",
+          'email': doc['email'] as String? ?? user.email ?? "",
+        };
       } else {
-        return user.displayName ?? "User";
+        return {
+          'name': user.displayName ?? "User",
+          'email': user.email ?? "",
+        };
       }
     } else {
-      return "User";
+      return {
+        'name': "User",
+        'email': "",
+      };
     }
   }
 }

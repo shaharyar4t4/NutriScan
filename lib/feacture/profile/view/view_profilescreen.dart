@@ -111,7 +111,8 @@ class ProfileScreen extends StatelessWidget {
                       ElevatedButton.icon(
                         onPressed: () async {
                           await controller.logout();
-                          Navigator.of(context).pushReplacementNamed('/login');
+                          Navigator.of(context)
+                              .pushReplacementNamed('/loginScreen');
                         },
                         icon: const Icon(Icons.logout, size: 24),
                         label: const Text("Log out"),

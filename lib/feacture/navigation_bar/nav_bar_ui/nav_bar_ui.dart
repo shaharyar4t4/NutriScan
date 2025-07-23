@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:nutriscan/core/constants/app_colors.dart';
 import 'package:nutriscan/feacture/barcode/home_screen/view_home_screen.dart';
 import 'package:nutriscan/feacture/navigation_bar/nav_bar_controller/nav_bar_controller.dart';
+import 'package:nutriscan/feacture/recent_product/view/scan_history_screen.dart';
 
 class NavBar extends StatefulWidget {
   @override
@@ -13,7 +14,7 @@ class _NavBarState extends State<NavBar> with SingleTickerProviderStateMixin {
 
   final List<Widget> pages = [
     HomeScreen(),
-    Center(child: Text('No History', style: TextStyle(fontSize: 24))),
+    ScanHistoryScreen(),
   ];
 
   @override

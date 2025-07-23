@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:nutriscan/feacture/recent_product/db/scan_history_helper.dart';
 import 'package:openfoodfacts/openfoodfacts.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -7,6 +8,7 @@ class ProductController extends GetxController {
   /// Observable fields for UI
   var predictionResult = ''.obs;
   var healthRisks = ''.obs;
+  final ScanHistoryHelper dbHelper = ScanHistoryHelper();
 
   /// Original helpers
   List<String> getImageUrls(Product product) {
@@ -86,6 +88,17 @@ class ProductController extends GetxController {
       predictionResult.value = 'Error: $e';
       healthRisks.value = 'Error';
     }
+  }
+
+  Future<void> saveScanToLocal(Product product) async {
+    final scanData = {
+      'productName': product.productName ?? 'Unknown',
+      'brand': product.brands ?? 'Unknown',
+      'calories': product.nutriments.extractEnergyKcal() ?? 0.0,
+      'dateTime': DateTime.now().toIso8601String(),
+    };
+    await dbHelper.insertScan(scanData);
+    print('✅ Scan saved locally!');
   }
 }
 

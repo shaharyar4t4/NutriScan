@@ -6,6 +6,7 @@ import 'package:nutriscan/feacture/navigation_bar/nav_bar_ui/nav_bar_ui.dart';
 import 'package:nutriscan/feacture/onboarding/veiws/view_onboredcar.dart';
 import 'package:nutriscan/feacture/onboarding/veiws/view_onboredscreen.dart';
 import 'package:nutriscan/feacture/profile/view/view_profilescreen.dart';
+import 'package:nutriscan/feacture/recent_product/view/scan_history_screen.dart';
 
 var allPage = [
   GetPage(
@@ -41,6 +42,11 @@ var allPage = [
   GetPage(
     name: '/profileview',
     page: () => ProfileScreen(),
+    transition: Transition.cupertino,
+  ),
+  GetPage(
+    name: '/scanHistory',
+    page: () => ScanHistoryScreen(),
     transition: Transition.cupertino,
   ),
 ];

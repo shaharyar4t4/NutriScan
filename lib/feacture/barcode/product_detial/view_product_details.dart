@@ -14,6 +14,7 @@ class ProductDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.put(ProductController());
     controller.sendToPredictionAPI(product);
+    controller.saveScanToLocal(product);
     final List<String> imageUrls = controller.getImageUrls(product);
 
     return Scaffold(

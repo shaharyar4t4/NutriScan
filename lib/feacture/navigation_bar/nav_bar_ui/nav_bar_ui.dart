@@ -91,7 +91,7 @@ class _NavBarState extends State<NavBar> with SingleTickerProviderStateMixin {
     return BottomNavigationBarItem(
       icon: ScaleTransition(
         scale: controller.animation,
-        child: Icon(icon, size: 24),
+        child: Icon(icon, size: 22),
       ),
       label: label,
       backgroundColor: card_bg,

@@ -107,7 +107,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 10),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Container(
@@ -131,43 +131,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                       const SizedBox(height: 7),
-                      ElevatedButton.icon(
-                        onPressed: () {
-                          BarcodeService.scanBarcode(
-                            context: context,
-                            onBarcodeScanned: (barcode) {
-                              setState(() {
-                                _barcode = barcode;
-                              });
-                            },
-                            onLoading: (isLoading) {
-                              setState(() {
-                                _isLoading = isLoading;
-                              });
-                            },
-                          );
-                        },
-                        icon: Icon(Icons.barcode_reader,
-                            color: Colors.white, size: 24),
-                        label: _isLoading
-                            ? SizedBox(
-                                width: 20,
-                                height: 20,
-                                child: CircularProgressIndicator(
-                                  valueColor: AlwaysStoppedAnimation<Color>(
-                                      Colors.white),
-                                  strokeWidth: 2,
-                                ),
-                              )
-                            : Text("Scan Now"),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: bg_down, // green button color
-                          foregroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                        ),
-                      ),
                       // if (_barcode != null) Text('Last Scanned: $_barcode'),
                     ],
                   ),
@@ -190,6 +153,51 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
             ),
+          ),
+          Column(
+            children: [
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                child: Image.asset("assets/images/home-screen.png"),
+              ),
+              ElevatedButton.icon(
+                onPressed: () {
+                  BarcodeService.scanBarcode(
+                    context: context,
+                    onBarcodeScanned: (barcode) {
+                      setState(() {
+                        _barcode = barcode;
+                      });
+                    },
+                    onLoading: (isLoading) {
+                      setState(() {
+                        _isLoading = isLoading;
+                      });
+                    },
+                  );
+                },
+                icon: Icon(Icons.barcode_reader, color: Colors.white, size: 24),
+                label: _isLoading
+                    ? SizedBox(
+                        width: 20,
+                        height: 20,
+                        child: CircularProgressIndicator(
+                          valueColor:
+                              AlwaysStoppedAnimation<Color>(Colors.white),
+                          strokeWidth: 2,
+                        ),
+                      )
+                    : Text("Scan Now"),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: bg_down, // green button color
+                  foregroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),

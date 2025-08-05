@@ -19,9 +19,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Nutri Scan',
       theme: ThemeData(
-        primaryColor: Colors.white,
-        textTheme: GoogleFonts.poppinsTextTheme(),
-      ),
+          primaryColor: Colors.white,
+          textTheme: GoogleFonts.poppinsTextTheme()),
       getPages: allPage,
       home: AuthWrapper(),
     );

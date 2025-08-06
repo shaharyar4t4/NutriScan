@@ -123,14 +123,23 @@ class _HomeScreenState extends State<HomeScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: Text(
-                          "Scan a Product",
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Scan a Product",
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold),
+                            ),
+                            Text(
+                              "Let’s make healthier choices.\nStart by scanning your food.",
+                              style: TextStyle(fontSize: 11, color: sub_text),
+                            ),
+                          ],
                         ),
                       ),
-                      const SizedBox(height: 7),
+
                       // if (_barcode != null) Text('Last Scanned: $_barcode'),
                     ],
                   ),
@@ -159,7 +168,10 @@ class _HomeScreenState extends State<HomeScreen> {
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                child: Image.asset("assets/images/home-screen.png"),
+                child: Image.asset(
+                  "assets/images/home-screen.png",
+                  width: 300,
+                ),
               ),
               ElevatedButton.icon(
                 onPressed: () {
@@ -190,6 +202,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       )
                     : Text("Scan Now"),
                 style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
                   backgroundColor: bg_down, // green button color
                   foregroundColor: Colors.white,
                   shape: RoundedRectangleBorder(

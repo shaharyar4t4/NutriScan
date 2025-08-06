@@ -35,6 +35,8 @@ class LoginController {
         'Error',
         result ?? 'Unknown error',
         snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: error_color,
+        colorText: Colors.white,
       );
     }
   }

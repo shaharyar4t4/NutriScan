@@ -7,3 +7,5 @@ const Color w_text = Color(0xFFFFFFFF);
 const Color b_text = Color(0xFF000000);
 const Color icon_bg = Color(0xFF005B46);
 const Color card_bg = Color(0xFFE8FFFA);
+const Color sub_text = Color(0xFF4A4A4A);
+const Color error_color = Color(0xFFa70000);

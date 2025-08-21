@@ -8,6 +8,7 @@ class ScanHistoryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Text('Scan History'),
         actions: [
           IconButton(
@@ -15,7 +16,7 @@ class ScanHistoryScreen extends StatelessWidget {
             onPressed: () async {
               await dbHelper.clearAllScans();
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('All history cleared')),
+                SnackBar(content: Text('All scan history cleared')),
               );
             },
           ),
@@ -43,7 +44,7 @@ class ScanHistoryScreen extends StatelessWidget {
                 child: ListTile(
                   title: Text(scan['productName']),
                   subtitle: Text(
-                    'Brand: ${scan['brand']}\nCalories: ${scan['calories'].toStringAsFixed(1)} kcal\nScanned: ${scan['dateTime']}',
+                    'Brand: ${scan['brand']}\nCalories: ${scan['calories'].toStringAsFixed(1)} kcal',
                   ),
                 ),
               );

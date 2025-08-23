@@ -20,3 +20,5 @@ export 'dart:async';
 export 'package:nutriscan/feacture/recent_product/db/scan_history_helper.dart';
 export 'package:path/path.dart';
 export 'package:sqflite/sqflite.dart';
+export 'package:nutriscan/feacture/profile/controller/profile_controller.dart';
+export 'package:nutriscan/feacture/auth/services/auth_services.dart';

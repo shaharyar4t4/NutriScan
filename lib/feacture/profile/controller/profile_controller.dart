@@ -1,4 +1,4 @@
-import 'package:nutriscan/feacture/auth/services/auth_services.dart';
+import 'package:nutriscan/core/constants/app_linker.dart';
 
 class ProfileController {
   final AuthServices _authServices = AuthServices();

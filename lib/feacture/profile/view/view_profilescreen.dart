@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:nutriscan/core/constants/app_colors.dart';
-import 'package:nutriscan/feacture/profile/controller/profile_controller.dart';
+import 'package:nutriscan/core/constants/app_linker.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});

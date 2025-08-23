@@ -1,4 +1,4 @@
-import '../../../core/constants/app_linker.dart';
+import 'package:nutriscan/core/constants/app_linker.dart';
 
 class ViewSplashscreen extends StatelessWidget {
   ViewSplashscreen({super.key});

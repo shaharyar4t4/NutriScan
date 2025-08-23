@@ -1,5 +1,4 @@
-import 'dart:async';
-import 'package:get/get.dart';
+import 'package:nutriscan/core/constants/app_linker.dart';
 
 class SplashController extends GetxController {
   @override

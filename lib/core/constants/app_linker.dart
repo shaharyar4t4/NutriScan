@@ -24,3 +24,5 @@ export 'package:nutriscan/feacture/profile/controller/profile_controller.dart';
 export 'package:nutriscan/feacture/auth/services/auth_services.dart';
 export 'package:nutriscan/feacture/onboarding/controller/onboredscreen_controller.dart';
 export 'package:nutriscan/feacture/onboarding/controller/onboardcar_controller.dart';
+export 'package:nutriscan/feacture/navigation_bar/nav_bar_controller/nav_bar_controller.dart';
+export 'package:flutter/src/foundation/diagnostics.dart';

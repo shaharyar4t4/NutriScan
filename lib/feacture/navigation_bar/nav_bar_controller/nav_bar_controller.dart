@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/diagnostics.dart';
+import 'package:nutriscan/core/constants/app_linker.dart';
 
 class NavBarController extends State<StatefulWidget>
     with ChangeNotifier, SingleTickerProviderStateMixin {

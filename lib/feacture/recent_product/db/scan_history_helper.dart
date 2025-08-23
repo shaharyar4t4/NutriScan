@@ -1,5 +1,4 @@
-import 'package:sqflite/sqflite.dart';
-import 'package:path/path.dart';
+import 'package:nutriscan/core/constants/app_linker.dart';
 
 class ScanHistoryHelper {
   static final ScanHistoryHelper _instance = ScanHistoryHelper._internal();

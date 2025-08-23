@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:nutriscan/feacture/recent_product/db/scan_history_helper.dart';
+import 'package:nutriscan/core/constants/app_linker.dart';
 
 class ScanHistoryScreen extends StatelessWidget {
   final dbHelper = ScanHistoryHelper();

@@ -17,3 +17,6 @@ export 'package:nutriscan/feacture/recent_product/view/view_scan_history_screen.
 export 'package:nutriscan/core/constants/app_colors.dart';
 export 'package:nutriscan/feacture/splash/controller/splash_controller.dart';
 export 'dart:async';
+export 'package:nutriscan/feacture/recent_product/db/scan_history_helper.dart';
+export 'package:path/path.dart';
+export 'package:sqflite/sqflite.dart';

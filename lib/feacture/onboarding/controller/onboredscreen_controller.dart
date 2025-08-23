@@ -1,4 +1,4 @@
-import 'package:get/get.dart';
+import 'package:nutriscan/core/constants/app_linker.dart';
 
 class OnBoardScreenController extends GetxController {
   // Navigate to next screen

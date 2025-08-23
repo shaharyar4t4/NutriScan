@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:nutriscan/core/constants/app_linker.dart';
 
 class OnboardCarController extends GetxController {
   final PageController pageController = PageController();

@@ -23,3 +23,4 @@ export 'package:sqflite/sqflite.dart';
 export 'package:nutriscan/feacture/profile/controller/profile_controller.dart';
 export 'package:nutriscan/feacture/auth/services/auth_services.dart';
 export 'package:nutriscan/feacture/onboarding/controller/onboredscreen_controller.dart';
+export 'package:nutriscan/feacture/onboarding/controller/onboardcar_controller.dart';

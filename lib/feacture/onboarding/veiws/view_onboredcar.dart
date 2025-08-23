@@ -1,7 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:nutriscan/core/constants/app_colors.dart';
-import 'package:nutriscan/feacture/onboarding/controller/onboardcar_controller.dart';
+import 'package:nutriscan/core/constants/app_linker.dart';
 
 class ViewOnboardCar extends StatelessWidget {
   ViewOnboardCar({super.key});

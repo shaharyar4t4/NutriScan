@@ -1,12 +1,4 @@
-import 'package:get/get.dart';
-import 'package:nutriscan/feacture/auth/view/view_loginscreen.dart';
-import 'package:nutriscan/feacture/auth/view/view_signupscreen.dart';
-import 'package:nutriscan/feacture/barcode/home_screen/view_home_screen.dart';
-import 'package:nutriscan/feacture/navigation_bar/nav_bar_ui/nav_bar_ui.dart';
-import 'package:nutriscan/feacture/onboarding/veiws/view_onboredcar.dart';
-import 'package:nutriscan/feacture/onboarding/veiws/view_onboredscreen.dart';
-import 'package:nutriscan/feacture/profile/view/view_profilescreen.dart';
-import 'package:nutriscan/feacture/recent_product/view/view_scan_history_screen.dart';
+import '../constants/app_linker.dart';
 
 var allPage = [
   GetPage(

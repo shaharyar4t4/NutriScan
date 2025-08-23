@@ -1,7 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:nutriscan/core/constants/app_colors.dart';
-import 'package:nutriscan/feacture/splash/controller/splash_controller.dart';
+import '../../../core/constants/app_linker.dart';
 
 class ViewSplashscreen extends StatelessWidget {
   ViewSplashscreen({super.key});

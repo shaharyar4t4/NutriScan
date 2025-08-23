@@ -14,3 +14,5 @@ export 'package:nutriscan/feacture/onboarding/veiws/view_onboredcar.dart';
 export 'package:nutriscan/feacture/onboarding/veiws/view_onboredscreen.dart';
 export 'package:nutriscan/feacture/profile/view/view_profilescreen.dart';
 export 'package:nutriscan/feacture/recent_product/view/view_scan_history_screen.dart';
+export 'package:nutriscan/core/constants/app_colors.dart';
+export 'package:nutriscan/feacture/splash/controller/splash_controller.dart';

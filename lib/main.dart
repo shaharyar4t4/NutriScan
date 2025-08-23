@@ -1,10 +1,4 @@
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:nutriscan/core/router/app_routes.dart';
-import 'package:nutriscan/feacture/auth/firebase/firebase_options.dart';
-import 'package:nutriscan/feacture/auth/services/auth_wrapper.dart';
+import 'core/constants/app_linker.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -1,9 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:percent_indicator/percent_indicator.dart';
-import 'package:nutriscan/core/constants/app_colors.dart';
-import 'package:nutriscan/feacture/barcode/product_detial/product_detial_controller.dart';
-import 'package:openfoodfacts/openfoodfacts.dart';
+import 'package:nutriscan/core/constants/app_linker.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
   final Product product;

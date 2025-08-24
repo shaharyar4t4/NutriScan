@@ -29,3 +29,4 @@ export 'package:flutter/src/foundation/diagnostics.dart';
 export 'package:openfoodfacts/openfoodfacts.dart';
 export 'package:nutriscan/feacture/barcode/product_detial/product_detial_controller.dart';
 export 'package:percent_indicator/percent_indicator.dart';
+export 'dart:convert';

@@ -1,8 +1,5 @@
-import 'package:get/get.dart';
-import 'package:nutriscan/feacture/recent_product/db/scan_history_helper.dart';
-import 'package:openfoodfacts/openfoodfacts.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
+import 'package:nutriscan/core/constants/app_linker.dart';
 
 class ProductController extends GetxController {
   /// Observable fields for UI

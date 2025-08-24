@@ -1,5 +1,3 @@
-// lib/controllers/login_controller.dart
-
 import 'package:nutriscan/core/constants/app_linker.dart';
 
 class LoginController {

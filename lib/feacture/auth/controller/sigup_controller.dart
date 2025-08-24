@@ -1,7 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:nutriscan/core/constants/app_colors.dart';
-import 'package:nutriscan/feacture/auth/services/auth_services.dart';
+import 'package:nutriscan/core/constants/app_linker.dart';
 
 class SignUpController {
   final TextEditingController nameController = TextEditingController();

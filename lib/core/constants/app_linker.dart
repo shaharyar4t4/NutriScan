@@ -35,3 +35,4 @@ export 'package:url_launcher/url_launcher.dart';
 export 'package:nutriscan/feacture/barcode/product_detial/view_product_details.dart';
 export 'package:connectivity_plus/connectivity_plus.dart';
 export 'package:barcode_scan2/barcode_scan2.dart';
+export 'package:nutriscan/feacture/splash/views/view_splashscreen.dart';

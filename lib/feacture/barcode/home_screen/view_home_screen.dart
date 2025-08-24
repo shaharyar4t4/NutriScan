@@ -1,9 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:nutriscan/core/constants/app_colors.dart';
-import 'package:nutriscan/feacture/auth/services/auth_services.dart';
-import 'package:nutriscan/feacture/barcode/home_screen/barcode_service.dart';
-import 'package:nutriscan/feacture/profile/view/view_profilescreen.dart';
+import 'package:nutriscan/core/constants/app_linker.dart';
 
 class HomeScreen extends StatefulWidget {
   @override

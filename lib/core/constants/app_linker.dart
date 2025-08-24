@@ -30,3 +30,8 @@ export 'package:openfoodfacts/openfoodfacts.dart';
 export 'package:nutriscan/feacture/barcode/product_detial/product_detial_controller.dart';
 export 'package:percent_indicator/percent_indicator.dart';
 export 'dart:convert';
+export 'package:nutriscan/feacture/barcode/home_screen/barcode_service.dart';
+export 'package:url_launcher/url_launcher.dart';
+export 'package:nutriscan/feacture/barcode/product_detial/view_product_details.dart';
+export 'package:connectivity_plus/connectivity_plus.dart';
+export 'package:barcode_scan2/barcode_scan2.dart';
